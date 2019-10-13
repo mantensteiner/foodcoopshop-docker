@@ -41,7 +41,3 @@ RUN chmod -R a+w ./webroot/files
 RUN chmod -R a+w ./webroot/tmp
 
 CMD apachectl -DFOREGROUND
-
-# Cronjob should be configured on the host 
-#RUN crontab -l > sgartlcron
-#RUN echo "*/10 * * * * wget http://localhost/cron" >> sgartlcron

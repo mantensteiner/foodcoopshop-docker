@@ -1,2 +1,2 @@
-RUN crontab -l > foodcoopshopcron
-RUN echo "*/10 * * * * wget http://localhost/cron" >> foodcoopshopcron
+crontab -l > foodcoopshopcron
+echo "*/10 * * * * wget --no-check-certificate http://localhost/cron" >> foodcoopshopcron
