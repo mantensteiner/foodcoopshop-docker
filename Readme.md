@@ -6,7 +6,7 @@ A Docker stack for FoodCoopShop which uses
 - An **Ubuntu** based container with **Apache** as webserver to host the [FoodCoopShop](https://www.foodcoopshop.com)  application
 - **Nginx** as web-proxy and for SSL-termination
 
-The project is for educational purposes and it's currently not recommended to run a live system with this approach. I use it for demo and testing purposes.
+The project is currently intended for educational purposes and it's not recommended to run a live system with this approach. I use it for demo and testing purposes.
 
 ## Setup Instructions for Host
 Tested with an Ubuntu 18.04 and Docker 19.03.
@@ -166,6 +166,8 @@ Also the application writes to some locations:
 - /var/www/foodcoopshop/webroot/files (eg. uploaded images)
   
 Therefore these folders must be mapped to the host system to keep the changes after container restarts or container updates (e.g. on new versions) and to be availabe for backups on the host-system (besides the SQL-backup).
+
+This is currently the biggest flaw with this approach (Docker-hosting), because it's not certain the application does not depend on the webroot/files folder in some way in a future release. Also the application could persist in other folders (subfolders of webroot). Therefore I do not recommend using this approach for live systems.
 
 Also some unsupported (but rather harmless) customizations can be done explicitly by mapping files into the container. E.g. changing the background tile:
 - ${PWD}/images/background/bg.jpg:/var/www/foodcoopshop/webroot/img/bg.jpg
