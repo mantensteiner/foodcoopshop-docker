@@ -18,6 +18,7 @@ services:
       - ${PWD}/config/app/custom_config.php:/var/www/foodcoopshop/config/custom_config.php
       - ${PWD}/images/background/bg.jpg:/var/www/foodcoopshop/webroot/img/bg.jpg
       - ${PWD}/webroot/files:/var/www/foodcoopshop/webroot/files
+      - ${PWD}/files_private:/var/www/foodcoopshop/files_private
       #- ${PWD}/images/logo/logo.jpg:/var/www/foodcoopshop/webroot/files/images/logo.jpg
       #- ${PWD}/images/logo/logo-pdf.jpg:/var/www/foodcoopshop/webroot/files/images/logo-pdf.jpg
     networks:
