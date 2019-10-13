@@ -1,0 +1,1 @@
+The files in these folders will be mapped into the MySql container, so the mysql-command in the container can execute the scripts.
