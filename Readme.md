@@ -53,7 +53,7 @@ This executes a docker container with certbot (command see below) and stores the
     -v "/etc/letsencrypt:/etc/letsencrypt" \
     -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
     certbot/certbot certonly -n \
-    -m "michael@appspark.at" \
+    -m "admin@fcsdemo1.com" \
     -d fcsdemo1.com -d www.fcsdemo1.com \
     --standalone --agree-tos
 
@@ -141,7 +141,7 @@ Create a cron-job on the host for certificate renewal
     bash scripts/add_renew_cron.sh
 
 #### 5.3 FoodCoopShop
-The application relies on a few manual file-changes during setup. To keep the container unchanged (avoiding creating new images) the changes are made on the host and the files are projected into the container via volume-mappings. Here is an example on how to start the container:
+The application relies on a few manual file-changes during setup. To keep the container unchanged (avoiding creating new images) the changes are made on the host and the files are projected into the container via volume-mappings. Here is an example on how to start the container for debugging purposes (without volume mappings):
 
     docker run --name fcs-app \
     -v /home/foodcoopshop/logs/apache2:/var/log/apache2 \
@@ -164,6 +164,7 @@ Most steps of this guide are already done by using the _mantenpanther/foodcoopsh
 Also the application writes to some locations:
 - /var/www/foodcoopshop/logs (eg. errors)
 - /var/www/foodcoopshop/webroot/files (eg. uploaded images)
+- /var/www/foodcoopshop/files_private
   
 Therefore these folders must be mapped to the host system to keep the changes after container restarts or container updates (e.g. on new versions) and to be availabe for backups on the host-system (besides the SQL-backup).
 
