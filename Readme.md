@@ -136,9 +136,9 @@ Instead of using Apache directly, this stack uses Nginx a front facing web-proxy
 
 Update the _config/nginx/nginx.conf_ settings to your environment.
 
-Create a cron-job for certificate renewal
+Create a cron-job on the host for certificate renewal
 
-    bash add_renew_cron.sh
+    bash scripts/add_renew_cron.sh
 
 #### 5.3 FoodCoopShop
 The application relies on a few manual file-changes during setup. To keep the container unchanged (avoiding creating new images) the changes are made on the host and the files are projected into the container via volume-mappings. Here is an example on how to start the container:
