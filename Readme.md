@@ -172,7 +172,11 @@ This is currently the biggest flaw with this approach (Docker-hosting), because 
 Also some unsupported (but rather harmless) customizations can be done explicitly by mapping files into the container. E.g. changing the background tile:
 - ${PWD}/images/background/bg.jpg:/var/www/foodcoopshop/webroot/img/bg.jpg
 
-### 6. Other commands
+### 6. Other 
 
 #### 6.1 Manual Backup Images/Content
 scp -r root@HOST:/var/www/APPLICATION_FOLDER/webroot/files ./foodcoopshop_backup/webroot_files
+
+
+### 6. TODOs
+- Use Docker secrets
