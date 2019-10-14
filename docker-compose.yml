@@ -1,0 +1,61 @@
+version: "3.7"
+
+networks:
+  fcs-net:
+    driver: overlay
+
+services:
+  fcs-app:
+    image: mantenpanther/foodcoopshop:2.6.2
+    #restart: 'always'
+    depends_on:
+      - fcs-mysql
+    volumes: 
+      - ${PWD}/logs/apache2:/var/log/apache2
+      - ${PWD}/logs/fcs:/var/www/foodcoopshop/logs
+      - ${PWD}/config/vhosts/010-foodcoopshop.conf:/etc/apache2/sites-available/010-foodcoopshop.conf
+      - ${PWD}/config/app/credentials.php:/var/www/foodcoopshop/config/credentials.php
+      - ${PWD}/config/app/custom_config.php:/var/www/foodcoopshop/config/custom_config.php
+      - ${PWD}/images/background/bg.jpg:/var/www/foodcoopshop/webroot/img/bg.jpg
+      - ${PWD}/webroot/files:/var/www/foodcoopshop/webroot/files
+      - ${PWD}/files_private:/var/www/foodcoopshop/files_private
+      #- ${PWD}/images/logo/logo.jpg:/var/www/foodcoopshop/webroot/files/images/logo.jpg
+      #- ${PWD}/images/logo/logo-pdf.jpg:/var/www/foodcoopshop/webroot/files/images/logo-pdf.jpg
+    networks:
+      - fcs-net
+
+  fcs-mysql:
+    image: mysql:5.7
+    #restart: 'always'
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ${PWD}/data/mysql:/var/lib/mysql
+      - ${PWD}/logs/mysql:/var/log/mysql
+      - ${PWD}/mysql/setup:/home/setup
+      - ${PWD}/mysql/sql:/home/sql
+    environment: # see setup.sh for values
+      MYSQL_ROOT_PASSWORD: mysecret 
+      MYSQL_DATABASE: foodcoopshop_db
+      MYSQL_USER: fcs_db_user
+      MYSQL_PASSWORD: mypassword
+    networks:
+      - fcs-net
+
+  fcs-nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - ${PWD}/config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /usr/share/nginx/html:/usr/share/nginx/html
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - fcs-net

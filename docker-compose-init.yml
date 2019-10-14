@@ -1,0 +1,24 @@
+version: "3.7"
+
+networks:
+  fcs-net:
+    driver: overlay
+
+services:
+  fcs-mysql:
+    image: mysql:5.7
+    #restart: 'always'
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ${PWD}/data/mysql:/var/lib/mysql
+      - ${PWD}/logs/mysql:/var/log/mysql
+      - ${PWD}/mysql/setup:/home/setup
+      - ${PWD}/mysql/sql:/home/sql
+    environment: # see setup.sh for values
+      MYSQL_ROOT_PASSWORD: mysecret
+      MYSQL_DATABASE: foodcoopshop_db
+      MYSQL_USER: fcs_db_user
+      MYSQL_PASSWORD: mypassword
+    networks:
+      - fcs-net
