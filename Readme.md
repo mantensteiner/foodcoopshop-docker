@@ -180,6 +180,4 @@ scp -r root@HOST:/var/www/APPLICATION_FOLDER/webroot/files ./foodcoopshop_backup
 
 
 ### 6. TODOs
-- Slider image upload seems to have problems (could be a general Bug)
-- Blog article update without manufacturer seems to have problems (could be a general Bug)
 - Use Docker secrets
