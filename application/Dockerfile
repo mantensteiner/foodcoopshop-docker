@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
-ENV FCS_VERSION="v2.6.2"
+ENV FCS_VERSION="v3.0.2"
+ENV PHP_VERSION="7.4"
 ENV FCS_SITE_CONF_NAME="010-foodcoopshop.conf"
 
 RUN apt-get -y update --fix-missing --no-install-recommends
@@ -18,7 +19,11 @@ RUN apt-get -yq install apache2 apache2-doc apache2-utils libexpat1 ssl-cert
 RUN a2enmod rewrite headers
 
 # PHP
-RUN apt-get -yq install libapache2-mod-php7.2 php7.2 php7.2-common php7.2-curl php7.2-dev php7.2-gd php-pear php-imagick php7.2-mysql php7.2-ps php7.2-xsl php7.2-intl php7.2-mbstring php7.2-xml
+RUN apt-get -yq install software-properties-common
+RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update
+RUN apt-get -yq install libapache2-mod-php$PHP_VERSION php$PHP_VERSION php$PHP_VERSION-common php$PHP_VERSION-curl php$PHP_VERSION-dev php$PHP_VERSION-gd php-pear php-imagick php$PHP_VERSION-mysql php$PHP_VERSION-ps php$PHP_VERSION-xsl php$PHP_VERSION-intl php$PHP_VERSION-mbstring php$PHP_VERSION-xml
+RUN a2enmod php$PHP_VERSION
 
 # Copy application files
 WORKDIR /var/www

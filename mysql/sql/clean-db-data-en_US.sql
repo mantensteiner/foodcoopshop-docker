@@ -5,6 +5,7 @@
 /*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -84,10 +85,10 @@ INSERT INTO `fcs_configuration` VALUES
 (456,1,'FCS_FOOTER_CMS_TEXT','Additional text for footer',NULL,'textarea_big',80,'en_US','2014-06-11 17:50:55','2016-07-01 21:47:47'),
 (508,1,'FCS_FACEBOOK_URL','Facebook url for embedding in footer','https://www.facebook.com/FoodCoopShop/','text',90,'en_US','2015-07-08 13:23:54','2015-07-08 13:23:54'),
 (538,1,'FCS_REGISTRATION_EMAIL_TEXT','Additional text that is sent in the registration e-mail after a successful registration. <br /> <a href=\"/admin/configurations/previewEmail/FCS_REGISTRATION_EMAIL_TEXT\" target=\"_blank\"><i class=\"fas fa-info-circle\"></i> E-mail preview</a>','','textarea_big',170,'en_US','2016-06-26 00:00:00','2016-06-26 00:00:00'),
-(543,1,'FCS_RIGHT_INFO_BOX_HTML','Content of the box in the right column below the shopping cart. <br /><div class=\"small\">To make the background of a row green, please format as \"Heading 3\".</div>','<h3>Delivery time</h3>\r\n\r\n<p>The pickup day can be seen in the product description, you can pick the product up on <strong>{DELIVERY_DAY}</strong>&nbsp;between 5 and 7 pm.</p>\r\n\r\n<p>You can order every week until Tuesday midnight and pick them up the following Friday.</p>\r\n','textarea_big',150,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
-(544,1,'FCS_CART_ENABLED','Is the shopping cart activated?<br /><div class=\"small\">If the food-coop is on holiday, please deactivate the order function here.</div>','1','boolean',10,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
+(543,1,'FCS_RIGHT_INFO_BOX_HTML','Content of the box in the right column below the shopping cart. <br /><div class=\"small\">To make the background of a row green, please format as \"Heading 3\".</div>','<h3>Delivery time</h3><p>You can order every week until Tuesday midnight and pick them up the following Friday.</p>','textarea_big',150,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
+(544,1,'FCS_NO_DELIVERY_DAYS_GLOBAL','Delivery break for all manufacturers?<br /><div class=\"small\">Here you can define delivery-free days for the whole food-coop.</div>','','multiple_dropdown',10,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
 (545,1,'FCS_ACCOUNTING_EMAIL','E-mail address for the financial manager<br /><div class=\"small\">Who receives the notification that invoices have been sent?</div>','','text',110,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
-(546,1,'FCS_AUTHENTICATION_INFO_TEXT','Info text in registration form<br /><div class=\"small\">This info text is shown in the registration form below the e-mail address.</div>','You need to be a member if you want to order here.','textarea',160,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
+(546,1,'FCS_REGISTRATION_INFO_TEXT','Info text in registration form<br /><div class=\"small\">This info text is shown in the registration form below the e-mail address.</div>','You need to be a member if you want to order here.','textarea_big',160,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
 (547,1,'FCS_SHOW_PRODUCTS_FOR_GUESTS','Products visible for guests?','0','boolean',20,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
 (548,1,'FCS_DEFAULT_NEW_MEMBER_ACTIVE','Automatically activate new members?','0','boolean',50,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
 (549,1,'FCS_MINIMAL_CREDIT_BALANCE','Credit limit too low? When is ordering deactivated?<br /><div class=\"small\">E.g.: \"100\" for 100 € minus. 0 means \"no order limit\".</div>','1','number',125,'en_US','2017-07-26 13:24:47','2017-07-26 13:24:47'),
@@ -101,7 +102,7 @@ INSERT INTO `fcs_configuration` VALUES
 (558,1,'FCS_APP_EMAIL','E-mail adress of the food-coop<br /><div class=\"small\"></div>','','text',7,'en_US','2017-01-12 00:00:00','2017-01-12 00:00:00'),
 (559,1,'FCS_PLATFORM_OWNER','Operator of the platform<br /><div class=\"small\">For privacy policy and terms of use, please also add adrress. Can be left empty if the food-coop itself is operator.</div>','','textarea',9,'en_US','2017-01-12 00:00:00','2017-01-12 00:00:00'),
 (563,1,'FCS_EMAIL_LOG_ENABLED','Should all sent e-mails be stored in the database?<br /><div class=\"small\">For debugging and unit tests.</div>','0','readonly',30,'en_US','2017-07-05 00:00:00','2017-07-05 00:00:00'),
-(564,1,'FCS_ORDER_COMMENT_ENABLED','Show comment field when placing an order?<br /><div class=\"small\">Shown in admin area under \"Orders\".</div>','0','boolean',13,'en_US','2017-07-09 00:00:00','2017-07-09 00:00:00'),
+(564,1,'FCS_ORDER_COMMENT_ENABLED','Show comment field when placing an order?<br /><div class=\"small\">Shown in admin area under \"Orders\".</div>','1','boolean',13,'en_US','2017-07-09 00:00:00','2017-07-09 00:00:00'),
 (565,1,'FCS_USE_VARIABLE_MEMBER_FEE','Use variable member fee?<br /><div class=\"small\">Reduce the variable member fee in the manufacturer\'s invoices? Therefore the prices need to be increased.</div>','0','readonly',40,'en_US','2017-08-02 00:00:00','2017-08-02 00:00:00'),
 (566,1,'FCS_DEFAULT_VARIABLE_MEMBER_FEE_PERCENTAGE','Default value for variable member fee<br /><div class=\"small\">The percentage can be changed in the manufacturer\'s settings.</div>','0','readonly',50,'en_US','2017-08-02 00:00:00','2017-08-02 00:00:00'),
 (567,1,'FCS_NETWORK_PLUGIN_ENABLED','Network module activated?<br /><div class=\"small\"><a href=\"https://foodcoopshop.github.io/en/network-module\" target=\"_blank\">Infos to the network module</a></div>','0','readonly',50,'en_US','2017-09-14 00:00:00','2017-09-14 00:00:00'),
@@ -121,8 +122,10 @@ INSERT INTO `fcs_configuration` VALUES
 (581,1,'FCS_SHOW_NON_STOCK_PRODUCTS_IN_INSTANT_ORDERS','Only show stock products in instant orders?','0','boolean',76,'en_US','2019-02-18 12:38:00','2019-02-18 12:38:00'),
 (582,1,'FCS_INCLUDE_STOCK_PRODUCTS_IN_INVOICES','Include stock products in invoices?','1','readonly',60,'en_US','2019-02-18 12:38:00','2019-02-18 12:38:00'),
 (583,1,'FCS_REGISTRATION_NOTIFICATION_EMAILS','Who should be notified on new registrations?<br /><div class=\"small\">Please separate multiple e-mail addresses with , (no space).</div>','','text',55,'en_US','2019-03-05 20:01:59','2019-03-05 20:01:59'),
-(584,1,'FCS_SELF_SERVICE_MODE_FOR_STOCK_PRODUCTS_ENABLED','Use self-service mode for stock products?<br /><div class=\"small\"><a href=\"https://foodcoopshop.github.io/en/self-service-mode\" target=\"_blank\">Online documentation</a></div>','0','readonly',57,'en_US','2019-04-17 20:01:59','2019-04-17 20:01:59'),
-(585,1,'FCS_APP_ADDITIONAL_DATA','Additional food-coop infos','','textarea',8,'en_US','2019-08-03 20:07:08','2019-08-03 20:07:08');
+(584,1,'FCS_SELF_SERVICE_MODE_FOR_STOCK_PRODUCTS_ENABLED','Use self-service mode for stock products?<br /><div class=\"small\"><a href=\"https://foodcoopshop.github.io/en/self-service-mode\" target=\"_blank\">Online documentation</a></div>','0','boolean',300,'en_US','2019-04-17 20:01:59','2019-04-17 20:01:59'),
+(585,1,'FCS_APP_ADDITIONAL_DATA','Additional food-coop infos','','textarea',8,'en_US','2019-08-03 20:07:08','2019-08-03 20:07:08'),
+(586,1,'FCS_SELF_SERVICE_MODE_TEST_MODE_ENABLED','Run self-service mode in test mode?<br /><div class=\"small\">Does not add links to main menu and to stock products.</div>','0','boolean',310,'en_US','2019-12-09 13:46:32','2019-12-09 13:46:32'),
+(587,1,'FCS_CASHLESS_PAYMENT_ADD_TYPE','Type of adding the payments<br /><div class=\"small\">How do the payment addings get into FoodCoopShop?</div>','manual','dropdown',145,'en_US','2020-02-11 10:13:01','2020-02-11 10:13:01');
 /*!40000 ALTER TABLE `fcs_configuration` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `fcs_cronjob_logs` DISABLE KEYS */;
@@ -251,12 +254,25 @@ INSERT INTO `phinxlog` VALUES
 (20190417072617,'SelfServiceModeConfiguration','2019-04-17 09:53:00','2019-04-17 09:53:00',0),
 (20190527070456,'CartProductUnits','2019-05-27 09:17:17','2019-05-27 09:17:17',0),
 (20190617201728,'RemoveLegacyPasswordHasher','2019-06-17 20:28:29','2019-06-17 20:28:29',0),
-(20190803174327,'AdditionalFieldForPrivacyPolicy','2019-08-03 18:07:08','2019-08-03 18:07:08',0);
+(20190803174327,'AdditionalFieldForPrivacyPolicy','2019-08-03 18:07:08','2019-08-03 18:07:08',0),
+(20191026164156,'GlobalDeliveryBreak','2019-10-26 17:02:59','2019-10-26 17:02:59',0),
+(20191104064912,'RemoveVarAbholtagFromSetting','2019-11-04 06:57:41','2019-11-04 06:57:41',0),
+(20191107180825,'DeleteProducts','2019-11-08 06:51:58','2019-11-08 06:51:58',0),
+(20191118074039,'ChangeRegistrationInfoTextConfiguration','2019-11-18 07:43:30','2019-11-18 07:43:30',0),
+(20191121185721,'NullableDbFields','2019-11-21 19:05:24','2019-11-21 19:05:24',0),
+(20191129075800,'RemoveBulkOrderOption','2019-11-29 08:16:43','2019-11-29 08:16:43',0),
+(20191209122308,'AddSelfServiceDbConfigTest','2019-12-09 12:46:32','2019-12-09 12:46:32',0),
+(20191222194750,'AddAutoLoginHash','2019-12-22 20:26:17','2019-12-22 20:26:17',0),
+(20200120095222,'StockAlwaysAvailableAndDefaultQuantity','2020-01-20 10:44:24','2020-01-20 10:44:24',0),
+(20200131081923,'FixCategoryAndPageTree','2020-01-31 08:36:09','2020-01-31 08:36:09',0),
+(20200202135400,'ChangeTextToLongtext','2020-02-02 14:06:07','2020-02-02 14:06:07',0),
+(20200211083925,'CashlessPaymentAddTypeConfiguration','2020-02-11 09:13:01','2020-02-11 09:13:01',0);
 /*!40000 ALTER TABLE `phinxlog` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
