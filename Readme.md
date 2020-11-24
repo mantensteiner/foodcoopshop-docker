@@ -1,6 +1,6 @@
 # FoodCoopShop hosted with Docker Swarm
 
-A Docker stack for FoodCoopShop which uses 
+A Docker stack for FoodCoopShop which uses
 
 - **MySql** as database
 - An **Ubuntu** based container with **Apache** as webserver to host the [FoodCoopShop](https://www.foodcoopshop.com)  application
@@ -26,14 +26,14 @@ Copy necessary files on the host working dir, e.g. /home/foodcoopshop
 
 Clone this repo and make your changes to the configs as far as possible at this point. Then copy via scp
 
-    scp -r * root@HOST:/home/foodcoopshop    
+    scp -r * root@HOST:/home/foodcoopshop
 
 or do this directly on the server.
 
 All commands later on are executed from the working dir _/home/foodcoopshop_.
 
 ### 2. Init Docker swarm
-Run 
+Run
 
     docker swarm init --advertise-addr IP
 
@@ -42,7 +42,7 @@ and use your hosts IP address.
 ### 3. Generate ssl certificate
 Make sure you updated your DNS settings for your domain.
 
-Run 
+Run
 
     bash scripts/generate.sh
 
@@ -62,15 +62,15 @@ Obviously you have to change email and domains to your settings.
 ### 4. Pull images
     docker pull nginx:stable-alpine
     docker pull mysql:5.7
-    docker pull mantenpanther/foodcoopshop:3.0.2
+    docker pull mantenpanther/foodcoopshop:3.1.0
 
 #### 4.1 Using your own FoocCoopShop image
 Modify the Dockerfile in the _application_ folder to your liking and create a new image, for example
 
     docker build -t mantensteiner/myfoodcoopshop:latest .
 
-### 5. Start Swarm stack 
-The command to run the full stack would be 
+### 5. Start Swarm stack
+The command to run the full stack would be
 
     docker stack deploy -c docker-compose.yml fcsdemo1
 
@@ -78,7 +78,7 @@ But for the inital DB-Setup you can run the MySQL container in isolation to init
 
     docker stack deploy -c docker-compose-init.yml fcsdemo1
 
-Then you setup the DB (see 5.1) and after successful initialization destroy the stack with 
+Then you setup the DB (see 5.1) and after successful initialization destroy the stack with
 
     docker stack rm fcsdemo1
 
@@ -92,19 +92,19 @@ Finally run the command above for the **full** stack and make the necessary file
 
 - Navigate to the site and create a Superadmin account (see guide)
   - Update the account configuration directly in MySql
-  
+
         # After account creation
         mysql -uroot -pmysecret foodcoopshop_db -e "UPDATE fcs_customer SET id_default_group = 5 WHERE id_customer=1;"
         mysql -uroot -pmysecret foodcoopshop_db -e "UPDATE fcs_customer SET active = 1 WHERE id_customer=1;"
 
   - Add the password to the credentials.php
-  
+
 
 #### 5.1 MySQL Initialization
 The Database must be initialized manually and also updated manually after the Superadmin account creation.
 
 - Deploy a new Swarm stack by using the "init" compose file, e.g. _docker stack deploy -c docker-compose-init.yml fcsdemo1_ as described above.
-  
+
   Alternatively start the container via _docker_-command (also create a network first) should also work
 
         docker network create -d bridge fcs-testnet
@@ -118,11 +118,11 @@ The Database must be initialized manually and also updated manually after the Su
         -d mysql:5.7
 
 - Execute a bash in the running container via
-  
+
         docker exec -it CONTAINER_ID /bin/bash
 
 - Inside the container run following command
-  
+
         bash /home/setup/setup.sh
 
   This initializes the DB by creating users, schemas and initial data. Use the right file for your language, in this case it's german by using _clean-db-data-de_DE.sql_.
@@ -150,7 +150,7 @@ The application relies on a few manual file-changes during setup. To keep the co
     -v /home/foodcoopshop/config/app/custom_config.php:/var/www/foodcoopshop/config/custom_config.php \
     -p 80:80 \
     --network=fcs-testnet \
-    -d mantenpanther/foodcoopshop:3.0.2
+    -d mantenpanther/foodcoopshop:3.1.0
 
 Following files need to be customized:
 - vhost for Apache conf (eventually, maybe the default-file is good enough)
@@ -165,7 +165,7 @@ Also the application writes to some locations:
 - /var/www/foodcoopshop/logs (eg. errors)
 - /var/www/foodcoopshop/webroot/files (eg. uploaded images)
 - /var/www/foodcoopshop/files_private
-  
+
 Therefore these folders must be mapped to the host system to keep the changes after container restarts or container updates (e.g. on new versions) and to be availabe for backups on the host-system (besides the SQL-backup).
 
 This is currently the biggest flaw with this approach (Docker-hosting), because it's not certain the application does not depend on the webroot/files folder in some way in a future release. Also the application could persist in other folders (subfolders of webroot). Therefore I do not recommend using this approach for live systems.
@@ -173,7 +173,7 @@ This is currently the biggest flaw with this approach (Docker-hosting), because 
 Also some unsupported (but rather harmless) customizations can be done explicitly by mapping files into the container. E.g. changing the background tile:
 - ${PWD}/images/background/bg.jpg:/var/www/foodcoopshop/webroot/img/bg.jpg
 
-### 6. Other 
+### 6. Other
 
 #### 6.1 Manual Backup Images/Content
 scp -r root@HOST:/var/www/APPLICATION_FOLDER/webroot/files ./foodcoopshop_backup/webroot_files

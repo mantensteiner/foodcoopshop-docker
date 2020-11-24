@@ -13,7 +13,7 @@ docker run --name fcs-mysql \
 --network=fcs-testnet \
 -d mysql:5.7
 
-docker exec -it CONTAINER_ID /bin/bash 
+docker exec -it CONTAINER_ID /bin/bash
 # bash /home/setup/setup.sh
 
 # Run application container
@@ -24,4 +24,4 @@ docker run --name fcs-app \
 -v $FCS_CONFIG_PATH/config/app/custom_config.php:/var/www/foodcoopshop/config/custom_config.php \
 -p 80:80 \
 --network=fcs-testnet \
--d mantenpanther/foodcoopshop:3.0.2
+-d mantenpanther/foodcoopshop:3.1.0
