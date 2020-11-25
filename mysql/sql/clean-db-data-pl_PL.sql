@@ -30,6 +30,7 @@ TRUNCATE TABLE `fcs_images`;
 TRUNCATE TABLE `fcs_invoices`;
 TRUNCATE TABLE `fcs_manufacturer`;
 TRUNCATE TABLE `fcs_order_detail`;
+TRUNCATE TABLE `fcs_order_detail_feedbacks`;
 TRUNCATE TABLE `fcs_order_detail_tax`;
 TRUNCATE TABLE `fcs_order_detail_units`;
 TRUNCATE TABLE `fcs_pages`;
@@ -125,7 +126,10 @@ INSERT INTO `fcs_configuration` VALUES
 (584,1,'FCS_SELF_SERVICE_MODE_FOR_STOCK_PRODUCTS_ENABLED','Użyć trybu samoobsługowego dla produktów magazynowych?<br /><div class=\"small\"><a href=\"https://foodcoopshop.github.io/pl/self-service-mode\" target=\"_blank\">Dokumentacja</a></div>','0','boolean',300,'pl_PL','2019-04-17 20:01:59','2019-04-17 20:01:59'),
 (585,1,'FCS_APP_ADDITIONAL_DATA','Additional food-coop infos','','textarea',8,'pl_PL','2019-08-03 20:07:12','2019-08-03 20:07:12'),
 (586,1,'FCS_SELF_SERVICE_MODE_TEST_MODE_ENABLED','Run self-service mode in test mode?<br /><div class=\"small\">Does not add links to main menu and to stock products.</div>','0','boolean',310,'pl_PL','2019-12-09 13:46:37','2019-12-09 13:46:37'),
-(587,1,'FCS_CASHLESS_PAYMENT_ADD_TYPE','Type of adding the payments<br /><div class=\"small\">How do the payment addings get into FoodCoopShop?</div>','manual','dropdown',145,'pl_PL','2020-02-11 10:13:06','2020-02-11 10:13:06');
+(587,1,'FCS_CASHLESS_PAYMENT_ADD_TYPE','Type of adding the payments<br /><div class=\"small\">How do the payment addings get into FoodCoopShop?</div>','manual','dropdown',145,'pl_PL','2020-02-11 10:13:06','2020-02-11 10:13:06'),
+(588,1,'FCS_SHOW_NEW_PRODUCTS_ON_HOME','Show new products on home?','1','boolean',22,'pl_PL','2020-04-15 09:42:02','2020-04-15 09:42:02'),
+(589,1,'FCS_FEEDBACK_TO_PRODUCTS_ENABLED','Are members allowed to write feedback to products?','1','boolean',320,'pl_PL','2020-06-19 09:02:55','2020-06-19 09:02:55'),
+(590,1,'FCS_CUSTOMER_CAN_SELECT_PICKUP_DAY','Pickup day can be selected by member on order confirmation.','0','readonly',59,'pl_PL','2020-07-06 10:34:44','2020-07-06 10:34:44');
 /*!40000 ALTER TABLE `fcs_configuration` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `fcs_cronjob_logs` DISABLE KEYS */;
@@ -137,7 +141,7 @@ INSERT INTO `fcs_cronjobs` VALUES
 (2,'CheckCreditBalance','week',NULL,'Friday','22:30:00',1),
 (3,'EmailOrderReminder','week',NULL,'Monday','18:00:00',1),
 (4,'PickupReminder','week',NULL,'Monday','09:00:00',1),
-(5,'SendInvoices','month',11,NULL,'07:30:00',1),
+(5,'SendInvoices','month',11,NULL,'10:30:00',1),
 (6,'SendOrderLists','day',NULL,NULL,'04:30:00',1);
 /*!40000 ALTER TABLE `fcs_cronjobs` ENABLE KEYS */;
 
@@ -161,6 +165,9 @@ INSERT INTO `fcs_cronjobs` VALUES
 
 /*!40000 ALTER TABLE `fcs_order_detail` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fcs_order_detail` ENABLE KEYS */;
+
+/*!40000 ALTER TABLE `fcs_order_detail_feedbacks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fcs_order_detail_feedbacks` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `fcs_order_detail_tax` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fcs_order_detail_tax` ENABLE KEYS */;
@@ -202,9 +209,9 @@ INSERT INTO `fcs_sliders` VALUES
 
 /*!40000 ALTER TABLE `fcs_tax` DISABLE KEYS */;
 INSERT INTO `fcs_tax` VALUES
-(1,20.000,1,0),
-(2,10.000,1,0),
-(3,13.000,1,0);
+(1,5.000,1,0),
+(2,8.000,1,0),
+(3,23.000,1,0);
 /*!40000 ALTER TABLE `fcs_tax` ENABLE KEYS */;
 
 /*!40000 ALTER TABLE `fcs_timebased_currency_order_detail` DISABLE KEYS */;
@@ -218,55 +225,11 @@ INSERT INTO `fcs_tax` VALUES
 
 /*!40000 ALTER TABLE `phinxlog` DISABLE KEYS */;
 INSERT INTO `phinxlog` VALUES
-(20180213193116,'InitPhinxlog','2018-08-01 07:27:56','2018-08-01 07:27:56',0),
-(20180213193117,'Migration018','2018-02-13 16:49:03','2018-02-13 16:49:04',0),
-(20180213193123,'Migration019','2018-02-13 16:49:04','2018-02-13 16:49:04',0),
-(20180213193133,'Migration020','2018-02-13 16:49:04','2018-02-13 16:49:04',0),
-(20180217191214,'CakeUpdate','2018-03-05 08:31:25','2018-03-05 08:32:13',0),
-(20180313083036,'TimebasedCurrency','2018-04-16 05:26:12','2018-04-16 05:26:20',0),
-(20180430130912,'PricePerUnit','2018-05-18 07:00:58','2018-05-18 07:01:06',0),
-(20180528152246,'ShowProductPriceForGuests','2018-06-01 08:02:58','2018-06-01 08:02:58',0),
-(20180601101119,'LocaleConfig','2018-06-11 06:13:02','2018-06-11 06:13:03',0),
-(20180604063719,'PricePerUnitFix','2018-06-04 10:56:06','2018-06-04 10:56:07',0),
-(20180613080329,'CategoriesLevelDepthFix','2018-06-13 06:20:52','2018-06-13 06:20:53',0),
-(20180613121712,'TreeLeftRightFix','2018-06-13 10:29:04','2018-06-13 10:29:06',0),
-(20180613174031,'CurrencySymbolAsConfiguration','2018-06-25 06:55:19','2018-06-25 06:55:19',0),
-(20180626080524,'AddLocaleToDatabaseConfig','2018-06-27 06:00:47','2018-06-27 06:00:47',0),
-(20180702075300,'RenameShopOrderToInstantOrder','2018-07-02 07:23:18','2018-07-02 07:23:18',0),
-(20180717100910,'ProductTablesOptimization','2018-08-01 07:28:57','2018-08-01 07:28:57',0),
-(20180720130810,'RemoveOrdersTable','2018-08-01 07:28:57','2018-08-01 07:28:57',0),
-(20180727070325,'CorrectBicLength','2018-08-01 07:28:57','2018-08-01 07:28:57',0),
-(20180814121543,'ImprovedStockManagement','2018-08-14 14:57:53','2018-08-14 14:57:53',0),
-(20180827074035,'AdditionalOrderPeriods','2018-08-27 08:28:29','2018-08-27 08:28:29',0),
-(20181001120127,'UpdatePasswordHashingMethod','2018-08-27 08:28:29','2018-08-27 08:28:29',0),
-(20181015080309,'ImproveNewPasswordRequest','2018-08-27 08:28:29','2018-08-27 08:28:29',0),
-(20181018125456,'Cronjobs','2018-08-27 08:28:29','2018-08-27 08:28:29',0),
-(20181027192224,'BootstrapUpdate','2018-10-27 08:28:29','2018-10-27 08:28:29',0),
-(20181029212405,'CorrectNetPrice','2018-10-29 08:28:29','2018-10-29 08:28:29',0),
-(20181226215706,'NoDeliveryDaysDefaultNull','2018-12-26 08:28:29','2018-12-26 08:28:29',0),
-(20190114095502,'Fontawesome5','2019-01-14 00:00:00','2019-01-14 00:00:00',0),
-(20190211210824,'AddFoodCoopShopInstancesMap','2019-02-11 21:25:36','2019-02-11 21:25:36',0),
-(20190218101915,'IndividualSendOrderListDay','2019-02-18 11:38:00','2019-02-18 11:38:00',0),
-(20190219104144,'StockProductOrderManagement','2019-02-19 21:25:36','2019-02-11 21:25:36',0),
-(20190305183508,'ConfigurationOptimizations','2019-03-05 19:01:59','2019-03-05 19:01:59',0),
-(20190314081354,'CorrectNetPriceAndTax','2019-03-14 09:53:00','2019-03-14 09:53:00',0),
-(20190331192259,'DifferentCartForInstantOrder','2019-03-31 09:53:00','2019-03-31 09:53:00',0),
-(20190417072617,'SelfServiceModeConfiguration','2019-04-17 09:53:00','2019-04-17 09:53:00',0),
-(20190527070456,'CartProductUnits','2019-05-27 09:17:21','2019-05-27 09:17:21',0),
-(20190617201728,'RemoveLegacyPasswordHasher','2019-06-17 20:28:34','2019-06-17 20:28:34',0),
-(20190803174327,'AdditionalFieldForPrivacyPolicy','2019-08-03 18:07:12','2019-08-03 18:07:12',0),
-(20191026164156,'GlobalDeliveryBreak','2019-10-26 17:03:03','2019-10-26 17:03:03',0),
-(20191104064912,'RemoveVarAbholtagFromSetting','2019-11-04 06:57:46','2019-11-04 06:57:46',0),
-(20191107180825,'DeleteProducts','2019-11-08 06:52:02','2019-11-08 06:52:02',0),
-(20191118074039,'ChangeRegistrationInfoTextConfiguration','2019-11-18 07:43:35','2019-11-18 07:43:35',0),
-(20191121185721,'NullableDbFields','2019-11-21 19:05:28','2019-11-21 19:05:28',0),
-(20191129075800,'RemoveBulkOrderOption','2019-11-29 08:16:48','2019-11-29 08:16:48',0),
-(20191209122308,'AddSelfServiceDbConfigTest','2019-12-09 12:46:37','2019-12-09 12:46:37',0),
-(20191222194750,'AddAutoLoginHash','2019-12-22 20:26:21','2019-12-22 20:26:21',0),
-(20200120095222,'StockAlwaysAvailableAndDefaultQuantity','2020-01-20 10:44:28','2020-01-20 10:44:28',0),
-(20200131081923,'FixCategoryAndPageTree','2020-01-31 08:36:13','2020-01-31 08:36:13',0),
-(20200202135400,'ChangeTextToLongtext','2020-02-02 14:06:11','2020-02-02 14:06:12',0),
-(20200211083925,'CashlessPaymentAddTypeConfiguration','2020-02-11 09:13:06','2020-02-11 09:13:06',0);
+(20200404145856,'RemoveV2Migrations','2020-04-04 15:01:12','2020-04-04 15:01:12',0),
+(20200415073329,'ShowNewProductsOnHome','2020-04-15 07:42:02','2020-04-15 07:42:02',0),
+(20200501192722,'EnableCashlessPaymentAddTypeConfiguration','2020-05-01 19:30:17','2020-05-01 19:30:17',0),
+(20200618063024,'AddProductFeedback','2020-06-19 07:02:54','2020-06-19 07:02:55',0),
+(20200703072605,'CustomerCanSelectPickupDay','2020-07-06 08:34:44','2020-07-06 08:34:44',0);
 /*!40000 ALTER TABLE `phinxlog` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
